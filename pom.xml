@@ -14,6 +14,7 @@
     <properties>
         <junit.version>4.11</junit.version>
         <lombok.version>1.12.6</lombok.version>
+        <fastjson.version>1.2.6</fastjson.version>
     </properties>
     <dependencies>
         <dependency>
@@ -26,6 +27,13 @@
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson.version}</version>
+        </dependency>
+
+
     </dependencies>
 
 

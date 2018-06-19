@@ -25,6 +25,7 @@
 
     <properties>
         <lucene.version>7.3.1</lucene.version>
+        <logback.version>1.2.3</logback.version>
     </properties>
 
     <!-- 导入lucene的相关依赖-->
@@ -51,6 +52,19 @@
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>2.6</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.seaboat</groupId>
+            <artifactId>IKAnalyzer</artifactId>
+            <version>6.4.0</version>
         </dependency>
 
     </dependencies>
