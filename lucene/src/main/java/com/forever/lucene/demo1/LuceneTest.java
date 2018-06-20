@@ -5,10 +5,15 @@ import org.apache.commons.io.FileUtils;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.*;
-import org.apache.lucene.index.*;
+import org.apache.lucene.index.DirectoryReader;
+import org.apache.lucene.index.IndexWriter;
+import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.queryparser.classic.QueryParser;
-import org.apache.lucene.search.*;
+import org.apache.lucene.search.IndexSearcher;
+import org.apache.lucene.search.Query;
+import org.apache.lucene.search.ScoreDoc;
+import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.junit.Test;
@@ -81,6 +86,8 @@ public class LuceneTest {
          * 2.indexRead的创建需要FSDirectory
          */
         IndexSearcher search = new IndexSearcher(DirectoryReader.open(FSDirectory.open(Paths.get("index"))));
+
+
 
         TopDocs topDocs = search.search(query, 20);
         for (ScoreDoc scoreDoc : topDocs.scoreDocs) {
