@@ -60,10 +60,9 @@ public class LuceneDemo1Test {
             docList.add(document);
         }
 
-        //创建索引
-        //使用IndexWriter
+        //创建索引(文件索引库)
         Directory dir = FSDirectory.open(Paths.get("index"));
-
+        //使用IndexWriter
         IndexWriter indexWriter = new IndexWriter(dir, new IndexWriterConfig());
 
         // 将doc写入到索引库
@@ -87,6 +86,9 @@ public class LuceneDemo1Test {
          * 2.indexRead的创建需要FSDirectory
          */
         IndexSearcher search = new IndexSearcher(DirectoryReader.open(FSDirectory.open(Paths.get("index"))));
+
+        // term 的查询
+        // TopDocs topDocs = search.search(new TermQuery(new Term(searchField, searchValue)), 10);
 
         TopDocs topDocs = search.search(query, 20);
         for (ScoreDoc scoreDoc : topDocs.scoreDocs) {

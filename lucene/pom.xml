@@ -64,6 +64,8 @@
         <dependency>
             <groupId>com.seaboat</groupId>
             <artifactId>IKAnalyzer</artifactId>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/resources/lib/IKAnalyzer-6.4.0.jar</systemPath>
             <version>6.4.0</version>
         </dependency>
 

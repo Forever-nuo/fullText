@@ -41,14 +41,19 @@ public class LuceneTest {
         //createIndex(new IKAnalyzer());
     }
 
+    /**
+     * 测试全文检索
+     *
+     * @throws IOException
+     * @throws ParseException
+     */
     @Test
     public void testQuery() throws IOException, ParseException {
 
         String searchField = "contentField";
         String searchValue = "蓝瘦香菇";
 
-        //term查询
-        // TopDocs topDocs = search.search(new TermQuery(new Term(searchField, searchValue)), 10);
+
 
         //全文检索
         QueryParser queryParser = new QueryParser(searchField, new IKAnalyzer());
@@ -56,7 +61,12 @@ public class LuceneTest {
         query(query);
     }
 
-
+    /**
+     * 创建索引 的演示
+     *
+     * @param analyzer
+     * @throws IOException
+     */
     public void createIndex(Analyzer analyzer) throws IOException {
         //获取原始文档
         File[] files = getFiles();
@@ -76,18 +86,17 @@ public class LuceneTest {
         indexWriter.close();
     }
 
-
-
-
     private void query(Query query) throws ParseException, IOException {
         /**
          * 创建IndexSearch对象
          * 1.需要 IndexReader
-         * 2.indexRead的创建需要FSDirectory
+         * 2.indexRead的创建需要{@link FSDirectory}(文件索引库)
          */
         IndexSearcher search = new IndexSearcher(DirectoryReader.open(FSDirectory.open(Paths.get("index"))));
 
 
+        // term 的查询
+        // TopDocs topDocs = search.search(new TermQuery(new Term(searchField, searchValue)), 10);
 
         TopDocs topDocs = search.search(query, 20);
         for (ScoreDoc scoreDoc : topDocs.scoreDocs) {
@@ -99,7 +108,6 @@ public class LuceneTest {
             log.info("-------------------------------------------------");
         }
     }
-
 
     private List<Document> getDocs(File[] files) throws IOException {
         //将原始文档 转换成 document
@@ -137,6 +145,5 @@ public class LuceneTest {
         String fileDirPath = URLDecoder.decode(this.getClass().getResource("/").getPath() + "luceneFile", "utf-8");
         return new File(fileDirPath).listFiles();
     }
-
 
 }
