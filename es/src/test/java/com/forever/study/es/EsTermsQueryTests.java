@@ -1,11 +1,9 @@
 package com.forever.study.es;
 
-import com.forever.study.es.mode.Book;
 import com.forever.study.es.mode.Product;
-import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.index.query.ConstantScoreQueryBuilder;
-import org.elasticsearch.index.query.MatchQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.query.TermsQueryBuilder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,16 +16,20 @@ import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class EsApplicationTests {
+public class EsTermsQueryTests {
 
     @Autowired
     private ElasticsearchTemplate es;
 
+    /**
+     * terms的查询
+     */
     @Test
-    public void contextLoads() {
-        ConstantScoreQueryBuilder constantScoreQueryBuilder = QueryBuilders.constantScoreQuery(null);
-        System.out.println(constantScoreQueryBuilder);
-        NativeSearchQuery nativeSearchQuery = new NativeSearchQuery(null);
+    public void testTerms() {
+        TermsQueryBuilder termsQueryBuilder = QueryBuilders.termsQuery("price", "20", "30");
+        ConstantScoreQueryBuilder constantScoreQueryBuilder = QueryBuilders.constantScoreQuery(termsQueryBuilder);
+        System.out.println(constantScoreQueryBuilder.toString());
+        NativeSearchQuery nativeSearchQuery = new NativeSearchQuery(termsQueryBuilder);
         List<Product> products = es.queryForList(nativeSearchQuery, Product.class);
     }
 
